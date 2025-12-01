@@ -152,7 +152,7 @@ Thumbs.db
 # Project specific
 dependency_graph.html
 dependencies.dot
-*.png
+
 *.svg
 *.pdf
 
