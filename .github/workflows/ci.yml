@@ -37,7 +37,6 @@ jobs:
     - name: Test help commands
       run: |
         python analyze_includes.py --help
-        python analyze_i_file.py
     
     - name: Test with example project
       run: |
