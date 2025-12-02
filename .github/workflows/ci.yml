@@ -8,62 +8,66 @@ on:
 
 jobs:
   test:
+    name: Test on ${{ matrix.os }} with Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        # Exclude some combinations to speed up CI
+        exclude:
+          - os: macos-latest
+            python-version: '3.8'
+          - os: windows-latest
+            python-version: '3.8'
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
     
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e .
+    - name: Display Python version
+      run: python --version
     
-    - name: Run basic tests
+    - name: Test help commands
       run: |
         python analyze_includes.py --help
-        python analyze_i_file.py --help || true
+        python analyze_i_file.py
     
-    - name: Test with example
+    - name: Test with example project
       run: |
         python analyze_includes.py examples/simple/main.cpp -I examples/simple -o test_output.html
     
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'
-      with:
-        name: test-output
-        path: test_output.html
+    - name: Verify output file
+      run: |
+        python -c "import os; assert os.path.exists('test_output.html'), 'Output file not generated'"
 
   lint:
+    name: Code Quality Check
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
+        python-version: '3.11'
     
     - name: Install linting tools
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 black
-    
-    - name: Check formatting with black
-      run: |
-        black --check analyze_includes_lib/ || true
+        pip install flake8
     
     - name: Lint with flake8
       run: |
-        flake8 analyze_includes_lib/ --max-line-length=100 --statistics || true
-
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 analyze_includes_lib/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Check for style issues (non-blocking)
+        flake8 analyze_includes_lib/ --count --max-line-length=100 --statistics --exit-zero
