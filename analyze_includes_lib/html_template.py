@@ -121,6 +121,13 @@ def get_css_styles():
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             max-width: 350px;
             z-index: 1000;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        #controls.collapsed {
+            transform: translateX(-370px);
+            opacity: 0;
+            pointer-events: none;
         }
         
         #controls h2 {
@@ -331,12 +338,39 @@ def get_css_styles():
         .module-info strong {
             color: #2196F3;
             font-size: 14px;
+        }
+        
+        #toggle-btn {
+            position: absolute;
+            top: 20px;
+            left: 390px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #2196F3;
+            color: #2196F3;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+        
+        #toggle-btn:hover {
+            background: #E3F2FD;
+            transform: scale(1.05);
+        }
+        
+        #toggle-btn.collapsed {
+            left: 20px;
         }"""
 
 
 def get_html_body():
     """返回 HTML body 部分"""
-    return """<div id="controls">
+    return """<button id="toggle-btn" title="收起/展开控制面板">◀</button>
+    
+    <div id="controls">
         <h2>C++ 依赖关系图</h2>
         <div class="info">
             <strong>当前模块：</strong><span id="current-module">-</span><br>
@@ -880,6 +914,27 @@ def get_javascript_code(modules_json):
                 loadModule(currentModuleIndex - 1);
             }} else if (e.key === 'ArrowRight' && currentModuleIndex < allModules.length - 1) {{
                 loadModule(currentModuleIndex + 1);
+            }}
+        }});
+        
+        // 控制面板收起/展开功能
+        const toggleBtn = document.getElementById('toggle-btn');
+        const controls = document.getElementById('controls');
+        let isCollapsed = false;
+        
+        toggleBtn.addEventListener('click', () => {{
+            isCollapsed = !isCollapsed;
+            
+            if (isCollapsed) {{
+                controls.classList.add('collapsed');
+                toggleBtn.classList.add('collapsed');
+                toggleBtn.innerHTML = '▶';
+                toggleBtn.title = '展开控制面板';
+            }} else {{
+                controls.classList.remove('collapsed');
+                toggleBtn.classList.remove('collapsed');
+                toggleBtn.innerHTML = '◀';
+                toggleBtn.title = '收起控制面板';
             }}
         }});
         
