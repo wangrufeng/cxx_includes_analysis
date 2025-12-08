@@ -1,184 +1,149 @@
-# C++ Dependency Analyzer
+# C++ 依赖关系分析工具
 
-[中文文档](README_zh.md) | English
-
-A powerful tool for analyzing and visualizing C++ module dependencies with interactive HTML graphs.
+一个强大的 C++ 模块依赖关系分析和可视化工具，支持生成交互式 HTML 依赖图。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/)
 
-## ✨ Features
+## ✨ 功能特性
 
-### 📊 Batch Analysis
-- Analyze multiple C++ source files simultaneously
-- Switch between modules using Previous/Next buttons or arrow keys
-- Navigate through complex projects with ease
+### 📊 批量分析
+- 支持同时分析多个 C++ 源文件
+- 通过 Previous/Next 按钮或方向键切换不同模块
+- 轻松浏览复杂项目的依赖关系
 
-### 🎯 Smart Library Classification
-- **System Libraries**: C/C++ standard library and Linux system headers
-  - `System/C++ Standard Library`: C++ standard library
-  - `System/Linux Headers`: Linux system headers
-  - `System/Other`: Other system libraries
+### 🎯 智能库分类
+- **系统库**：C/C++ 标准库和 Linux 系统头文件
+  - `System/C++ Standard Library`: C++ 标准库
+  - `System/Linux Headers`: Linux 系统头文件
+  - `System/Other`: 其他系统库
 
-- **Third-Party Libraries**: Common third-party dependencies
-  - `Third-Party/Boost`: Boost library
-  - `Third-Party/Abseil`: Abseil library
-  - `Third-Party/bRPC`: bRPC framework
-  - `Third-Party/gflags`: gflags command-line flags
-  - `Third-Party/glog`: glog logging library
+- **第三方库**：常见的第三方依赖库
+  - `Third-Party/Boost`: Boost 库
+  - `Third-Party/Abseil`: Abseil 库
+  - `Third-Party/bRPC`: bRPC 框架
+  - `Third-Party/gflags`: gflags 命令行参数库
+  - `Third-Party/glog`: glog 日志库
   - `Third-Party/Protobuf`: Protocol Buffers
-  - And more...
+  - 以及更多...
 
-- **Project Files**: Your project source files
-  - `Project/xxx`: Grouped by directory structure
-  - `Generated/Proto Files`: Generated Protobuf files
+- **项目文件**：当前项目的源文件
+  - `Project/xxx`: 按目录结构分组
+  - `Generated/Proto Files`: 生成的 Protobuf 文件
 
-### 🎨 Interactive Visualization
-- **Two Layout Modes**:
-  - Tree Layout: Hierarchical dependency view from left to right
-  - Force-Directed Layout: Dynamic physics-based layout
+### 🎨 交互式可视化
+- **两种布局模式**：
+  - 树状布局：按依赖层级从左到右排列
+  - 力导向布局：动态物理模拟布局
 
-- **Interactive Features**:
-  - Click nodes to highlight dependencies (red=depends on, green=depended by)
-  - Drag nodes to adjust positions
-  - Search box to filter files
-  - Mouse wheel zoom and drag to pan
-  - Keyboard shortcuts for quick navigation
+- **交互功能**：
+  - 点击节点查看依赖关系（红色=依赖的文件，绿色=被依赖的文件）
+  - 拖拽节点调整位置
+  - 搜索框过滤文件
+  - 鼠标滚轮缩放，拖拽画布移动
+  - 键盘快捷键快速导航
 
-- **Visual Indicators**:
-  - Node colors indicate file size (green=small, yellow=medium, orange=large, red=huge)
-  - Edge thickness shows dependency importance
+- **视觉提示**：
+  - 节点颜色表示文件大小（绿色=小，黄色=中，橙色=大，红色=巨大）
+  - 连线粗细表示依赖重要性
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-> 📖 **New to this tool?** Check out the [Quick Start Guide](QUICK_START.md) for a 5-minute tutorial with common use cases!
+> 📖 **第一次使用？** 查看[快速开始指南](QUICK_START.md)，5 分钟上手，包含常见使用场景！
 
-### Installation
+### 安装
 
 ```bash
 git clone https://github.com/yourusername/cxx_includes_analysis.git
 cd cxx_includes_analysis
 ```
 
-No dependencies needed - uses only Python 3.6+ standard library!
+无需安装依赖 - 仅需 Python 3.6+ 标准库！
 
-### Try the Example
+### 试试示例
 
 ```bash
-# Analyze the included example
+# 分析内置示例
 python3 analyze_includes.py examples/simple/main.cpp -I examples/simple
 
-# Open the generated HTML
-open dependency_graph.html  # macOS
-# or: xdg-open dependency_graph.html  # Linux
-# or: start dependency_graph.html     # Windows
+# 浏览器中打开生成的 HTML
+open dependency_graph.html
 ```
 
-### Analyze Your Code
+### 分析你的代码
 
 ```bash
-# Single file
+# 单个文件
 python3 analyze_includes.py src/main.cpp
 
-# Multiple files with custom paths
+# 多个文件，自定义路径
 python3 analyze_includes.py src/*.cpp -I ./include -o project_deps.html
 ```
 
-**📚 For more examples and detailed usage, see:**
-- [Quick Start Guide](QUICK_START.md) - 5-minute tutorial
-- [User Guide](docs/USER_GUIDE.md) - Complete documentation
-- [Examples](examples/) - Sample projects
+**📚 更多示例和详细用法，请查看：**
+- [快速开始指南](QUICK_START.md) - 5 分钟教程
+- [用户指南](docs/USER_GUIDE_zh.md) - 完整文档
+- [示例项目](examples/) - 示例代码
 
-## 📖 Documentation
+## 📖 文档
 
-- **[Quick Start Guide](QUICK_START.md)** - 5-minute tutorial with common scenarios
-- **[User Guide](docs/USER_GUIDE.md)** - Complete usage instructions and best practices
-- **[API Documentation](docs/API.md)** - Library API reference for programmatic usage
-- **[Examples](examples/)** - Sample projects and use cases
-- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to this project
+- **[快速开始指南](QUICK_START.md)** - 5 分钟教程，包含常见场景
+- **[用户指南](docs/USER_GUIDE_zh.md)** - 完整使用说明和最佳实践
+- **[API 文档](docs/API.md)** - 库 API 参考，用于编程调用
+- **[示例项目](examples/)** - 示例代码和用例
 
-## 📋 Command-Line Options
+## 📋 命令行参数
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `source_files` | C++ source files to analyze (supports multiple) | Required |
-| `-I, --include` | Add include search path (can be used multiple times) | Predefined paths |
-| `--depth` | Maximum recursion depth | 3 |
-| `--deep-system` | Deep scan system headers | False |
-| `--format` | Output format: html/dot/both | html |
-| `-o, --output` | Output file name | dependency_graph.html |
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `source_files` | 要分析的 C++ 源文件（支持多个） | 必需 |
+| `-I, --include` | 添加 include 搜索路径（可多次使用） | 预定义路径 |
+| `--depth` | 最大递归深度 | 3 |
+| `--deep-system` | 深度扫描系统头文件 | False |
+| `--format` | 输出格式：html/dot/both | html |
+| `-o, --output` | 输出文件名 | dependency_graph.html |
 
-> 💡 **Tip**: For detailed usage examples, see the [Quick Start Guide](QUICK_START.md) or [User Guide](docs/USER_GUIDE.md)
 
-## 🎮 Interactive HTML Features
+## 🔧 配置
 
-The generated HTML provides an interactive visualization with:
+通过编辑 `analyze_includes_lib/config.py` 自定义工具：
 
-- **🔄 Module Navigation**: Switch between modules using Previous/Next buttons or ← → keys
-- **🎯 Click to Explore**: Click nodes to highlight dependencies (red=depends on, green=depended by)
-- **🔍 Search & Filter**: Find files quickly with the search box
-- **📐 Two Layouts**: Toggle between tree layout and force-directed layout
-- **🖱️ Zoom & Pan**: Mouse wheel to zoom, drag to move around
-- **✋ Drag Nodes**: Adjust positions manually
+- **Include 路径**：添加项目的 include 目录
+- **第三方库**：定义自定义库分类
+- **视觉设置**：调整颜色和大小阈值
 
-> 📖 For detailed controls and tips, see the [User Guide](docs/USER_GUIDE.md#interactive-html-guide)
+> 📖 详见[用户指南 - 配置](docs/USER_GUIDE_zh.md#配置)
 
-## 🔧 Configuration
 
-Customize the tool by editing `analyze_includes_lib/config.py`:
+## 📝 许可证
 
-- **Include Paths**: Add your project's include directories
-- **Third-Party Libraries**: Define custom library classifications
-- **Visual Settings**: Adjust colors and size thresholds
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
-> 📖 See [User Guide - Configuration](docs/USER_GUIDE.md#configuration) for details
+## 🙏 致谢
 
-## 🤝 Contributing
+- [D3.js](https://d3js.org/) - 交互式可视化
+- [Graphviz](https://graphviz.org/) - DOT 格式支持
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+## 📮 联系方式
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+如有任何问题或建议，请在 GitHub 上提交 issue。
 
-## 📝 License
+## 📊 截图
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### 示例输出
+这是内置示例项目生成的依赖关系图：
 
-## 🙏 Acknowledgments
+![示例依赖图](docs/images/example-simple-dependency-graph.png)
 
-- [D3.js](https://d3js.org/) - For interactive visualizations
-- [Graphviz](https://graphviz.org/) - For DOT format support
+*交互式可视化展示了 main.cpp、utils.h、config.h 与系统头文件之间的依赖关系*
 
-## 📮 Contact
-
-If you have any questions or suggestions, please open an issue on GitHub.
-
-## 🗺️ Roadmap
-
-- [ ] Support for CMake project analysis
-- [ ] Export to other formats (JSON, CSV)
-- [ ] Circular dependency detection
-- [ ] Dependency statistics and reports
-- [ ] Integration with CI/CD pipelines
-
-## 📊 Screenshots
-
-### Example Output
-Here's what the dependency graph looks like for the included example project:
-
-![Example Dependency Graph](docs/images/example-simple-dependency-graph.png)
-
-*Interactive visualization showing dependencies between main.cpp, utils.h, config.h and system headers*
-
-### Features in Action
-- 🎯 **Node Colors**: File size visualization (green=small, yellow=medium)
-- 🔗 **Edge Connections**: Clear dependency relationships
-- 📁 **Smart Grouping**: System libraries, project files organized
-- 🎨 **Interactive**: Click, drag, zoom, and explore!
+### 功能展示
+- 🎯 **节点颜色**：文件大小可视化（绿色=小，黄色=中等）
+- 🔗 **边连接**：清晰的依赖关系
+- 📁 **智能分组**：系统库、项目文件有序组织
+- 🎨 **交互式**：点击、拖拽、缩放，自由探索！
 
 ---
 
-**Star ⭐ this repository if you find it helpful!**
+**如果觉得有帮助，请给个 Star ⭐！**
+
