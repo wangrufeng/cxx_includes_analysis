@@ -9,6 +9,8 @@ from .config import DEFAULT_INCLUDE_PATHS, INCLUDE_PATTERN
 from .analyzer import DependencyAnalyzer
 from .dot_visualizer import DotVisualizer
 from .html_visualizer import HtmlVisualizer
+from .blade_parser import BladeParser, find_blade_root
+from .blade_visualizer import BladeHtmlVisualizer
 from .utils import get_file_size, format_size, simplify_path
 
 __all__ = [
@@ -17,6 +19,9 @@ __all__ = [
     'DependencyAnalyzer',
     'DotVisualizer',
     'HtmlVisualizer',
+    'BladeParser',
+    'BladeHtmlVisualizer',
+    'find_blade_root',
     'get_file_size',
     'format_size',
     'simplify_path',
